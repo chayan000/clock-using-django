@@ -1,0 +1,104 @@
+{% extends 'index.html' %}
+{% block title %}timer{% endblock title %}
+{% block head %}
+<style>
+    .button {
+        background-color: #04AA6D;
+        border: none;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        border-radius: 4px
+      }
+</style>
+{% endblock head %}
+{% block body %}
+
+<h1 style="color: rgb(248, 199, 199);text-align:center;">Timer</h1>
+<div class="container" style="height: 400px; width: 70%;text-align: center;>
+<form onsubmit="return false">
+    <div>
+      <label ><h1 style="color:green; text-align:center;">Enter Time</></label>
+      <input type="time"id="time" step="1">
+    </div>
+    <button id="set" class="button">Set</button>
+    <button id="reset" class="button">Reset</button>
+  </form> 
+  <h1 style="color:green; text-align:center;">Countdown:<br> <span id="showtime"></span></h1>
+  <button id="start" class="button">Start timer</button>
+</div>
+<script>
+    
+    const set= document.getElementById('set');
+    set.addEventListener("click",displaytime);
+
+    function displaytime(){
+        const time=document.getElementById('time').value;
+
+        if(!time){
+            alert("enter the timer time");
+            return;
+        }
+        document.getElementById('showtime').innerHTML=time;
+        return false;
+    }
+    const start= document.getElementById('start');
+    start.addEventListener('click',starttimer);
+    
+    function starttimer(){
+        let time=document.getElementById('time').value;
+        if(!time){
+
+           alert("please set timer");
+           return;
+        }
+        var Minutesseconds = time.split(":");
+        var hours = parseInt(Minutesseconds[0], 10);
+        var minutes = Minutesseconds[1] ? parseInt(Minutesseconds[1], 10) : 0;
+        var seconds = Minutesseconds[2] ? parseInt(Minutesseconds[2], 10) : 0;
+        let looptime=hours+":"+minutes+":"+seconds
+        const interval=setInterval(() => {
+            time=looptime;
+            Minutesseconds = time.split(":");
+            hours = parseInt(Minutesseconds[0], 10);
+            minutes = Minutesseconds[1] ? parseInt(Minutesseconds[1], 10) : 0;
+            seconds = Minutesseconds[2] ? parseInt(Minutesseconds[2], 10) : 0;
+            
+            
+            if(minutes==0 && seconds==1 && hours==0){
+                alert("attention!!!! timer time out");
+                clearInterval(interval);
+                document.location.reload(true)
+            }
+            if(seconds==00 && minutes!=00){
+                minutes--;
+                seconds=60;
+            }
+            
+            if(minutes==00 && seconds==00){
+                hours--;
+                minutes=59;
+                seconds=59;
+            }
+            else{
+                seconds--;
+            }
+            
+
+           looptime=hours+":"+minutes+":"+seconds;
+           document.getElementById('showtime').innerHTML=hours+":"+minutes+":"+seconds;
+           
+        },1000);
+    }  
+    const reset= document.getElementById('reset');
+    reset.addEventListener("click",resetpage);
+
+    function resetpage(){
+        document.location.reload(true);
+    }
+</script>
+{% endblock body %}

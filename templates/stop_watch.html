@@ -1,0 +1,87 @@
+{% extends 'index.html' %}
+{% block title %}Stop Watch/{% endblock title %}
+{% block head %}
+<style>
+    .button {
+        background-color: #04AA6D;
+        border: none;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        border-radius: 4px
+      }
+      .button1 {
+        background-color: red;
+        border: none;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        border-radius: 4px
+      }  
+</style>
+{% endblock head %}
+{% block body %}
+<h1 style="color: rgb(248, 199, 199); text-align:center;">Stop watch</h1>
+<div class="container" style="height: 400px; width: 70%;text-align: center;">
+<button id="start" class="button">Start watch</button>
+<br>
+<span id="time" style="font-family: 'digital-7';sans-serif; color: blue;font-size: 80pt;"></span>
+<br>
+<button id="stop" class="button1">Stop</button>
+<h1 style="color:green; text-align:center;">Last recorded time: <span id="last"></span></h1>
+</div>
+<script>
+    var interval;
+    var last;
+    var hours=00;
+    var minutes=00;
+    var seconds=00;
+    var miliseconds=00;
+    document.getElementById('time').innerHTML=hours+":"+minutes+":"+seconds+":"+miliseconds
+    
+    
+    
+    function starttime(){
+        hours=00;
+        minutes=00;
+        seconds=00;
+        miliseconds=00;
+        interval=setInterval(startnew,10)
+    }
+
+    function startnew(){
+        miliseconds++;
+        if(miliseconds==100){
+            seconds++;
+            miliseconds=00;
+        }
+        if(seconds==60){
+            minutes++;
+            seconds=00;
+        }
+        if(minutes==60){
+            hours++;
+            minutes=00;
+        }
+        last=hours+":"+minutes+":"+seconds+":"+miliseconds;
+        document.getElementById('time').innerHTML=hours+":"+minutes+":"+seconds+":"+miliseconds;
+    }
+    
+    function stoptime(){
+        document.getElementById('last').innerHTML=last;
+        clearInterval(interval);
+    }
+
+    document.getElementById('start').addEventListener("click",starttime);
+    document.getElementById('stop').addEventListener("click",stoptime);
+               
+</script>
+{% endblock body %}

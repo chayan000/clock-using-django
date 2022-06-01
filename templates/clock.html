@@ -1,0 +1,77 @@
+{% extends 'index.html' %}
+{% block head %}
+
+{% endblock head %}
+{% block title %}digital clock/{% endblock title %}
+{% block body %}
+<h1 style="color: rgb(248, 199, 199);text-align:center;">Digital Clock</h1>
+    <div class="container" style="height: 400px; width: 70%;text-align: center;">
+        <div>
+        <h1 style="color:green; text-align:center;">Time<br> <span id="time" style="font-family: 'digital-7';sans-serif;color:blue;font-size:100pt"> </span></h1>
+        </div> 
+        <div>
+          <span style="color:rgb(17, 5, 0) ;font-size: medium; background-color: aqua;" id="am">AM</span>  
+          <span style="color:rgb(17, 5, 0);font-size: medium;background-color: aqua;" id="pm">PM</span>
+        </div>
+        <h1 style="color:green; text-align:center;">Date<br><span id="date" style="font-family: 'digital-7';sans-serif; color: blue;"> </span></h1>
+        <div >
+          <span style="color:rgb(228,236,111) ;font-size: medium;opacity:0.3;" id="sun">SUN</span>
+          <span style="color:rgb(228,236,111) ;font-size: medium;opacity:0.3;" id="mon">MON</span>
+          <span style="color:rgb(228,236,111) ;font-size: medium;opacity:0.3;" id="tue">TUE</span>
+          <span style="color:rgb(228,236,111) ;font-size: medium;opacity:0.3;" id="wed">WED</span>
+          <span style="color:rgb(228,236,111) ;font-size: medium;opacity:0.3;" id="thu">THU</span>
+          <span style="color:rgb(228,236,111) ;font-size: medium;opacity:0.3;" id="fri">FRI</span>
+          <span style="color:rgb(228,236,111) ;font-size: medium;opacity:0.3;" id="sat">SAT</span>
+        </div>
+    </div>
+    <script>
+        let a;
+        let time;
+        let date;
+        setInterval(() => {
+            a=new Date
+            time= a.getHours() + ":"+a.getMinutes()+":"+a.getSeconds();
+            document.getElementById('time').innerHTML=time;
+            if(a.getHours()<12){
+              document.getElementById("pm").style.opacity=0.3;
+            }
+            else{
+              document.getElementById("am").style.opacity=0.3;
+            }
+            
+          
+            const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+      
+            let month = months[a.getMonth()];
+            let date= a.getDate();
+            let year= a.getFullYear();
+            
+            document.getElementById('date').innerHTML=date+"-"+month+"-"+year;
+
+            if(a.getDay()==0){
+              document.getElementById('sun').style.opacity=2;
+            }
+            if(a.getDay()==1){
+              document.getElementById('mon').style.opacity=2;
+            }
+            if(a.getDay()==2){
+              document.getElementById('tue').style.opacity=2;
+            }
+            if(a.getDay()==3){
+              document.getElementById('wed').style.opacity=2;
+            }
+            if(a.getDay()==4){
+              document.getElementById('thu').style.opacity=2;
+            }
+            if(a.getDay()==5){
+              document.getElementById('fri').style.opacity=2;
+            }
+            if(a.getDay()==6){
+              document.getElementById('sat').style.opacity=2;
+            }
+            
+        }, 1000);
+        
+    </script>
+{% endblock body %}
